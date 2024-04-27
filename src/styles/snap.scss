@@ -1,0 +1,21 @@
+.snap {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  z-index: 3;
+
+  .snapImg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+  }
+
+  .countdownTimer {
+    position: absolute;
+    top: 4%;
+    right: 5%;
+    z-index: 4;
+  }
+}

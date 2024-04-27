@@ -1,0 +1,75 @@
+.login_c {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+
+  .toast {
+    position: absolute;
+    top: 7%;
+    width: 100%;
+    height: 93%;
+  }
+
+  .heading {
+    position: absolute;
+    top: 15%;
+  }
+
+  .info {
+    width: 80%;
+    color: #c8c8c8;
+    text-align: center;
+    position: absolute;
+    top: 20%;
+  }
+
+  .userInput {
+    width: 350px;
+    position: absolute;
+    top: 30%;
+
+    h6 {
+      color: #c8c8c8;
+      font-family: "Figtree", sans-serif;
+      font-size: 10px;
+      font-weight: 500;
+    }
+
+    .otpInput {
+      width: 100%;
+      justify-content: space-between;
+      margin-top: 5%;
+    }
+
+    .otpInputSingle {
+      font-size: 1.5rem;
+      border: 2px solid #c8c8c8;
+      outline: none;
+    }
+  }
+
+  .resendCode {
+    position: absolute;
+    top: 43%;
+    font-family: "Figtree", sans-serif;
+    color: #74d4fe;
+    cursor: pointer;
+  }
+
+  .login_cButton {
+    color: white;
+    font-weight: 600;
+    font-family: "Figtree", sans-serif;
+    position: absolute;
+    bottom: 4%;
+    text-transform: capitalize;
+    font-size: 13px;
+    width: 55%;
+    border-radius: 50px;
+  }
+}

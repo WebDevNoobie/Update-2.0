@@ -1,0 +1,59 @@
+.signUp1 {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+
+  h3 {
+    position: absolute;
+    top: 15%;
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .signUp1Info {
+    width: 70%;
+    position: absolute;
+    top: 23%;
+
+    h6 {
+      font-size: 10px;
+      font-weight: 500;
+      color: #c8c8c8;
+    }
+
+    input {
+      color: black;
+      width: 100%;
+      border-width: 0 0 1px 0;
+      border-color: #c8c8c8;
+      outline: none;
+      font-size: 18px;
+      margin: 5px 0 10px 0;
+      padding: 0;
+    }
+
+    p {
+      font-size: 11px;
+
+      span {
+        color: #74d4fe;
+      }
+    }
+  }
+
+  .signUp1Button {
+    color: white;
+    font-weight: 600;
+    position: absolute;
+    bottom: 4%;
+    text-transform: capitalize;
+    font-size: 13px;
+    width: 55%;
+    border-radius: 50px;
+  }
+}

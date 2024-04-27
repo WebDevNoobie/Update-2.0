@@ -1,0 +1,51 @@
+.signUp3 {
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  z-index: 3;
+
+  .heading {
+    position: absolute;
+    top: 20%;
+  }
+
+  .userName {
+    position: absolute;
+    top: 30%;
+  }
+
+  .changeUserName {
+    position: absolute;
+    top: 43%;
+    color: #74d4fe;
+    cursor: pointer;
+  }
+
+  .info {
+    width: 70%;
+    position: absolute;
+    top: 53%;
+    color: #c8c8c8;
+    text-align: center;
+  }
+
+  .signUp3Button {
+    color: white;
+    font-weight: 600;
+    position: absolute;
+    bottom: 4%;
+    text-transform: capitalize;
+    font-size: 13px;
+    width: 55%;
+    border-radius: 50px;
+    background-color: #74d4fe;
+  }
+
+  .signUp3Button:hover {
+    background-color: #ade6ff;
+  }
+}

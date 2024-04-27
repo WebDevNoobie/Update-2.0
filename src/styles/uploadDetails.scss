@@ -1,0 +1,66 @@
+.uploadDetails {
+  width: 100vw;
+  height: 100vh;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+
+  .profilePic {
+    width: 80%;
+    aspect-ratio: 1;
+    object-fit: contain;
+    position: absolute;
+    top: 25%;
+    border-radius: 50%;
+  }
+
+  .file {
+    display: block;
+    width: 80%;
+    height: 5%;
+    border-radius: 10px;
+    background-color: #eeeeee;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+    cursor: pointer;
+    transition: transform 0.2s ease-out;
+    position: absolute;
+    bottom: 15%;
+
+    p {
+      padding-left: 10%;
+      padding-right: 10%;
+      width: 80%;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+  }
+
+  .file:hover {
+    outline: 1px solid lightskyblue;
+  }
+
+  .upload {
+    color: white;
+    font-weight: 600;
+    position: absolute;
+    bottom: 4%;
+    text-transform: capitalize;
+    font-size: 13px;
+    width: 55%;
+    border-radius: 50px;
+  }
+
+  .progressBar {
+    position: absolute;
+    top: 10%;
+    width: 50%;
+  }
+}
