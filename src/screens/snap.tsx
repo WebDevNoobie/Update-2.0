@@ -1,13 +1,15 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { selectSnapURL } from "../redux/slices/appSlice";
 import "../styles/snap.scss";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
+import LoadingAnimation from "./loadingAnimation";
 
 function Snap() {
   const selectedImage = useSelector(selectSnapURL);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     if (!selectedImage) {
@@ -16,19 +18,33 @@ function Snap() {
   }, [selectedImage]);
 
   const exit = () => {
-    navigate("/home");
+    navigate(-1);
   };
 
   return (
     <div className="snap">
-      <img src={selectedImage} alt="" onClick={exit} className="snapImg" />
+      {loading && (
+        <div className="animationDiv">
+          <LoadingAnimation />
+        </div>
+      )}
+      <img
+        src={selectedImage}
+        alt=""
+        onClick={exit}
+        className="snapImg"
+        onLoad={() => {
+          setLoading(false);
+          console.log("loaded");
+        }}
+      />
       <div className="countdownTimer">
         <CountdownCircleTimer
-          isPlaying
+          isPlaying={!loading}
           duration={10}
           strokeWidth={5}
           size={35}
-          colors="#ffffff"
+          colors="#000000"
         >
           {({ remainingTime, color }) => {
             if (remainingTime === 0) {

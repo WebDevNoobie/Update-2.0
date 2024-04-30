@@ -14,35 +14,34 @@
     display: flex;
     background-color: #fe5a5a;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: center;
     position: relative;
+    padding: 0 15px;
 
     .accountCircleIcon {
-      width: 40px;
-      height: 40px;
+      width: 50px;
+      height: 50px;
       cursor: pointer;
       position: absolute;
-      left: 6%;
-      bottom: 15%;
+    }
+
+    .accountCircleIcon_img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
     }
 
     .headerHeading {
-      position: absolute;
-      right: 50%;
-      transform: translateX(50%);
-      bottom: 10%;
       color: white;
       font-weight: 900;
-      font-size: 23px;
+      font-size: 28px;
     }
 
     .searchIcon {
       width: 40px;
       height: 40px;
       cursor: pointer;
-      position: absolute;
-      right: 6%;
-      bottom: 15%;
       transform: rotateY(180deg);
       color: white;
     }
@@ -55,8 +54,8 @@
   }
 
   .snapCaptureButton {
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
     background-color: transparent;
     border-radius: 50%;
     border: 5px solid #fe5a5a;

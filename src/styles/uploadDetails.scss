@@ -9,17 +9,17 @@
   z-index: 3;
 
   .profilePic {
-    width: 80%;
+    width: 250px;
     aspect-ratio: 1;
     object-fit: contain;
     position: absolute;
-    top: 25%;
+    top: 10%;
     border-radius: 50%;
   }
 
   .file {
     display: block;
-    width: 80%;
+    width: 170px;
     height: 5%;
     border-radius: 10px;
     background-color: #eeeeee;
@@ -30,12 +30,11 @@
     cursor: pointer;
     transition: transform 0.2s ease-out;
     position: absolute;
-    bottom: 15%;
+    top: 50%;
 
     p {
       padding-left: 10%;
       padding-right: 10%;
-      width: 80%;
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -51,16 +50,24 @@
     color: white;
     font-weight: 600;
     position: absolute;
-    bottom: 4%;
+    bottom: 10%;
     text-transform: capitalize;
     font-size: 13px;
-    width: 55%;
+    width: 170px;
     border-radius: 50px;
   }
 
   .progressBar {
     position: absolute;
-    top: 10%;
+    top: 70%;
     width: 50%;
+  }
+}
+
+@media screen and (width<450px) {
+  .uploadDetails {
+    .profilePic {
+      width: 200px;
+    }
   }
 }

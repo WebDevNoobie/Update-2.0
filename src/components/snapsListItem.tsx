@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { db } from "../../firebase.config";
 import { collection, doc, updateDoc } from "firebase/firestore";
 import { selectUser, setSnapURL } from "../redux/slices/appSlice";
+import { useState } from "react";
 
 function SnapsListItem({
   id,
@@ -26,6 +27,7 @@ function SnapsListItem({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector(selectUser);
+  const [loading, setLoading] = useState(true);
 
   const open = () => {
     if (!read) {
@@ -39,17 +41,21 @@ function SnapsListItem({
   };
 
   return (
-    <div onClick={open} className="snapsListItem">
-      <Avatar className="avatar" src={dp} />
-      <div className="snapInfo">
-        <h3>{username}</h3>
-        <p>
-          Tap to view -{" "}
-          <ReactTimeago date={new Date(uploadedOn?.toDate()).toUTCString()} />
-        </p>
+    <>
+      <div onClick={open} className="snapsListItem">
+        {loading && <Avatar className="avatar" />}
+        <img className="avatar_img" src={dp} onLoad={() => setLoading(false)} />
+        <div className="snapInfo">
+          <h3>{username}</h3>
+          <p>
+            {!read && `Tap to view - `}
+            <ReactTimeago date={new Date(uploadedOn?.toDate()).toUTCString()} />
+          </p>
+        </div>
+        {!read && <StopRoundedIcon className="readDot" />}
       </div>
-      {!read && <StopRoundedIcon className="readDot" />}
-    </div>
+      <div className="seperator"></div>
+    </>
   );
 }
 

@@ -71,7 +71,7 @@ function Login_c() {
     <div className="login_c">
       <div id="recaptcha-container"></div>
       <h3 className="heading">Enter Confirmation Code</h3>
-      <h5 className="info">Enter the code we sent to +{num}</h5>
+      <h5 className="info">Enter the code we sent to {num}</h5>
       <div className="userInput">
         <h6>CODE</h6>
         <OtpInput

@@ -14,7 +14,7 @@
   }
 
   .info {
-    width: 80%;
+    width: 60%;
     color: #c8c8c8;
     text-align: center;
     position: absolute;
@@ -22,7 +22,7 @@
   }
 
   .userInput {
-    width: 75%;
+    width: 300px;
     position: absolute;
     top: 30%;
 
@@ -48,10 +48,18 @@
     color: white;
     font-weight: 600;
     position: absolute;
-    bottom: 4%;
+    bottom: 10%;
     text-transform: capitalize;
     font-size: 13px;
-    width: 55%;
+    width: 170px;
     border-radius: 50px;
+  }
+}
+
+@media screen and (width<450px) {
+  .signUp4 {
+    .userInput {
+      width: 220px;
+    }
   }
 }

@@ -6,6 +6,9 @@
   z-index: 3;
 
   .snapPreviewImg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -15,11 +18,13 @@
   .recaptureButton {
     font-size: 45px;
     position: absolute;
-    color: white;
+    color: black;
     cursor: pointer;
     top: 2%;
-    left: 4%;
+    right: 4%;
     z-index: 4;
+    background-color: #fffc00;
+    border-radius: 30%;
   }
 
   .sendSnapButton {

@@ -1,14 +1,4 @@
-// @import url('https://fonts.googleapis.com/css2?family=Figtree:wght@300&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
-
-*{
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Quicksand', sans-serif;
-}
-
-.firstScreen{
+.firstScreen {
   width: 100vw;
   height: 100vh;
   background-color: #fffc00;
@@ -16,14 +6,14 @@
   justify-content: center;
   position: relative;
 
-  .logo{
+  .logo {
     position: absolute;
     width: 20%;
     object-fit: contain;
     top: 20%;
   }
 
-  .buttons{
+  .buttons {
     position: absolute;
     display: flex;
     flex-direction: column;
@@ -32,25 +22,25 @@
   }
 }
 
-@media screen and (width<768px){
-  .firstScreen{
-    .logo{
+@media screen and (width<768px) {
+  .firstScreen {
+    .logo {
       width: 25%;
     }
   }
 }
 
-@media screen and (width<600px){
-  .firstScreen{
-    .logo{
+@media screen and (width<600px) {
+  .firstScreen {
+    .logo {
       width: 30%;
     }
   }
 }
 
-@media screen and (width<480px){
-  .firstScreen{
-    .logo{
+@media screen and (width<480px) {
+  .firstScreen {
+    .logo {
       width: 35%;
     }
   }

@@ -16,7 +16,7 @@
   }
 
   .signUp1Info {
-    width: 70%;
+    width: 370px;
     position: absolute;
     top: 23%;
 
@@ -50,10 +50,26 @@
     color: white;
     font-weight: 600;
     position: absolute;
-    bottom: 4%;
+    bottom: 10%;
     text-transform: capitalize;
     font-size: 13px;
-    width: 55%;
+    width: 170px;
     border-radius: 50px;
+  }
+}
+
+@media screen and (width<768px) {
+  .signUp1 {
+    .signUp1Info {
+      width: 300px;
+    }
+  }
+}
+
+@media screen and (width<450px) {
+  .signUp1 {
+    .signUp1Info {
+      width: 250px;
+    }
   }
 }

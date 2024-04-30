@@ -2,13 +2,14 @@ import { Button } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/login.scss";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/style.css";
+import { PhoneInput } from "react-international-phone";
+import "../styles/te.css";
 import { RecaptchaVerifier, signInWithPhoneNumber } from "firebase/auth";
 import toast from "react-hot-toast";
-import { auth } from "../../firebase.config";
+import { auth, db } from "../../firebase.config";
 import { setConfirmation } from "../redux/slices/appSlice";
 import { useDispatch } from "react-redux";
+import { doc, getDoc } from "firebase/firestore";
 
 function Login() {
   const navigate = useNavigate();
@@ -17,24 +18,30 @@ function Login() {
 
   const sendOTP = async () => {
     try {
-      const recaptcha = new RecaptchaVerifier(auth, "recaptcha-container", {
-        size: "invisible",
-        callback: () => {},
-        "expired-callback": () => {},
-      });
-      const confirmation = await signInWithPhoneNumber(
-        auth,
-        "+" + number,
-        recaptcha
-      );
-      if (confirmation) {
-        dispatch(setConfirmation(confirmation));
-        navigate("/login_c", {
-          state: { phone: number },
+      const docRef = doc(db, "numbers", number);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const recaptcha = new RecaptchaVerifier(auth, "recaptcha-container", {
+          size: "invisible",
+          callback: () => {},
+          "expired-callback": () => {},
         });
+        const confirmation = await signInWithPhoneNumber(
+          auth,
+          "+" + number,
+          recaptcha
+        );
+        if (confirmation) {
+          dispatch(setConfirmation(confirmation));
+          navigate("/login_c", {
+            state: { phone: number },
+          });
+        }
+      } else {
+        toast.error("Phone number not registered!");
       }
     } catch (error) {
-      toast.error("Can't send OTP");
+      toast.error("Couldn't send OTP!");
       console.log(error);
     }
   };
@@ -49,21 +56,23 @@ function Login() {
       <div className="userInput">
         <h6>MOBILE</h6>
         <PhoneInput
-          country={"in"}
+          className="qwe"
+          inputClassName="phon"
+          defaultCountry="in"
           value={number}
           onChange={(phone) => setNumber(phone)}
         />
       </div>
       <Button
         sx={{
-          backgroundColor: number.length < 12 ? "#c8c8c8" : "#74d4fe",
+          backgroundColor: number.length < 13 ? "#c8c8c8" : "#74d4fe",
           ":hover": {
-            backgroundColor: number.length < 12 ? "#c8c8c8" : "#ade6ff",
+            backgroundColor: number.length < 13 ? "#c8c8c8" : "#ade6ff",
           },
         }}
         className="loginButton"
         onClick={sendOTP}
-        disabled={number.length < 12 ? true : false}
+        disabled={number.length < 13 ? true : false}
       >
         Continue
       </Button>

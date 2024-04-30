@@ -14,16 +14,22 @@ function Home() {
   const [snaps, setSnaps] = useState<any>([]);
   const userData = useSelector(selectUser);
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
 
   const logoutUser = () => {
     signOut(auth);
-    navigate("/");
+    navigate("/firstScreen");
   };
 
   const getSnaps = () => {
     onSnapshot(
       query(
-        collection(db, "users", userData.id, "receivedSnaps"),
+        collection(
+          db,
+          "users",
+          auth.currentUser ? auth.currentUser.uid : "",
+          "receivedSnaps"
+        ),
         orderBy("uploadedOn", "desc")
       ),
       (snapshot) => {
@@ -39,17 +45,20 @@ function Home() {
   };
 
   useEffect(() => {
+    console.log(userData.id);
     getSnaps();
   }, []);
 
   return (
     <div className="home">
       <div className="homeHeader">
-        <Avatar
-          src={userData ? userData.dp : ""}
-          className="accountCircleIcon"
+        {loading && <Avatar className="accountCircleIcon" />}
+        <img
+          src={userData.dp}
+          className="accountCircleIcon_img"
+          onLoad={() => setLoading(false)}
         />
-        <h3 className="headerHeading">Snaps</h3>
+        <h3 className="headerHeading">Updates</h3>
         <PowerSettingsNewIcon className="searchIcon" onClick={logoutUser} />
       </div>
       <div className="snapsDiv">

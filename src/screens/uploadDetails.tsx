@@ -10,7 +10,7 @@ import {
   selectUserName,
 } from "../redux/slices/signupSlice";
 import "../styles/uploadDetails.scss";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import { db, storage } from "../../firebase.config";
 import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import ProgressBar from "@ramonak/react-progress-bar";
@@ -61,15 +61,11 @@ function UploadDetails() {
           setImgURL(downloadURL);
           setFile(null);
           setDoc(doc(db, "users", uid), userData);
+          dispatch(login(userData));
+          navigate("/home");
         });
       }
     );
-  };
-
-  const nextScreen = async () => {
-    const uData = await (await getDoc(doc(db, "users", uid))).data();
-    dispatch(login(uData));
-    navigate("/home");
   };
 
   return (
@@ -90,11 +86,15 @@ function UploadDetails() {
           accept="image/*"
           onChange={(e) => {
             setFile(e.target.files?.[0]);
-            setImgURL(null);
+            setImgURL(
+              URL.createObjectURL(
+                e.target.files ? e.target.files[0] : new Blob()
+              )
+            );
           }}
           style={{ display: "none" }}
         />
-        <p>{file === null ? "Select Picture" : file.name}</p>
+        <p>{file === null ? "Select Picture" : "Change Picture"}</p>
       </label>
       <Button
         sx={{
@@ -106,10 +106,10 @@ function UploadDetails() {
           },
         }}
         className="upload"
-        onClick={imgURL === null ? saveData : nextScreen}
+        onClick={saveData}
         disabled={file === null && imgURL === null ? true : false}
       >
-        {imgURL === null ? "Upload" : "Continue"}
+        Upload and Continue
       </Button>
       {!imgURL && (
         <ProgressBar

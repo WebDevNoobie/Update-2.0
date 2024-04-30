@@ -1,13 +1,14 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import animationData from "./assets/Loading.json";
-import Lottie from "react-lottie";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
-import { Suspense, lazy, useEffect } from "react";
+import { Suspense, lazy, useEffect, useState } from "react";
 import { auth, db } from "../firebase.config";
 import { doc, getDoc } from "firebase/firestore";
 import { login, logout } from "./redux/slices/appSlice";
 import { useDispatch } from "react-redux";
+import "./styles/index.scss";
 
+import LoadingAnimation from "./screens/loadingAnimation";
+import ProtectedRoute from "./components/protectedRoute";
 const FirstScreen = lazy(() => import("./screens/firstScreen"));
 const Login = lazy(() => import("./screens/login"));
 const Login_c = lazy(() => import("./screens/login_otp"));
@@ -23,57 +24,56 @@ const Home = lazy(() => import("./screens/home"));
 const CaptureSnap = lazy(() => import("./screens/captureSnap"));
 const PreviewCapturedSnap = lazy(() => import("./screens/previewCapturedSnap"));
 const Snap = lazy(() => import("./screens/snap"));
-// import FirstScreen from "./screens/firstScreen";
-// import Login from "./screens/login";
-// import Login_c from "./screens/login_otp";
-// import Signup1 from "./screens/signup1";
-// import Signup2 from "./screens/signup2";
-// import Signup3 from "./screens/signup3";
-// import Signup3_edit from "./screens/signup3_edit";
-// import Signup4 from "./screens/signup4";
-// import Signup5 from "./screens/signup5";
-// import Signup5_c from "./screens/signup5_otp";
-// import UploadDetails from "./screens/uploadDetails";
-// import Home from "./screens/home";
-// import CaptureSnap from "./screens/captureSnap";
-// import PreviewCapturedSnap from "./screens/previewCapturedSnap";
-// import Snap from "./screens/snap";
 
 export default function App() {
   const dispatch = useDispatch();
-  // const user = useSelector(selectUser);
-
-  const defaultOptions = {
-    loop: true,
-    autoplay: true,
-    animationData: animationData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
-  };
+  const navigate = useNavigate();
+  const [userExist, setUSerExist] = useState<boolean>();
+  const [loading, setLoading] = useState(true);
 
   const getUserData = async () => {
-    const uData = await (
-      await getDoc(
+    try {
+      const uDoc = await getDoc(
         doc(db, "users", auth.currentUser ? auth.currentUser.uid : "")
-      )
-    ).data();
-    dispatch(login(uData));
+      );
+      if (uDoc.exists()) {
+        const uData = uDoc.data();
+        dispatch(login(uData));
+        setUSerExist(true);
+        navigate("/home");
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const removeUserData = async () => {
+    dispatch(logout());
+    setUSerExist(false);
+    navigate("/firstScreen");
+    setLoading(false);
   };
 
   useEffect(() => {
+    setLoading(true);
     auth.onAuthStateChanged((authUser) => {
-      authUser ? getUserData() : dispatch(logout());
+      authUser ? getUserData() : removeUserData();
     });
   }, []);
 
-  return (
-    <Router>
-      <Suspense
-        fallback={<Lottie options={defaultOptions} height={40} width={40} />}
-      >
-        <Routes>
-          <Route path="/" element={<FirstScreen />} />
+  return loading ? (
+    <LoadingAnimation />
+  ) : (
+    <Suspense fallback={<LoadingAnimation />}>
+      <Routes>
+        <Route
+          element={
+            <ProtectedRoute isAuthenticated={userExist ? false : true} />
+          }
+        >
+          <Route path="/" element={<LoadingAnimation />} />
+          <Route path="/firstScreen" element={<FirstScreen />} />
           <Route path="/login" element={<Login />} />
           <Route path="/login_c" element={<Login_c />} />
           <Route path="/signup1" element={<Signup1 />} />
@@ -83,6 +83,12 @@ export default function App() {
           <Route path="/signup4" element={<Signup4 />} />
           <Route path="/signup5" element={<Signup5 />} />
           <Route path="/signup5_c" element={<Signup5_c />} />
+        </Route>
+        <Route
+          element={
+            <ProtectedRoute isAuthenticated={userExist ? true : false} />
+          }
+        >
           <Route path="/uploadDetails" element={<UploadDetails />} />
           <Route path="/home" element={<Home />} />
           <Route path="/captureSnap" element={<CaptureSnap />} />
@@ -91,9 +97,9 @@ export default function App() {
             element={<PreviewCapturedSnap />}
           />
           <Route path="/snap" element={<Snap />} />
-        </Routes>
-        <Toaster position="bottom-center" />
-      </Suspense>
-    </Router>
+        </Route>
+      </Routes>
+      <Toaster position="bottom-center" />
+    </Suspense>
   );
 }
